@@ -1,0 +1,16 @@
+.mat-toolbar{
+
+  .distance-toolbar{
+    flex: 1 1 auto;
+  }
+}
+
+.content{
+  padding: 16px;
+
+  .loading-content{
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+  }
+}

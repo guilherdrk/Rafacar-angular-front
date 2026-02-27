@@ -3,16 +3,36 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VeiculoListaComponent } from './features/veiculos/page/veiculo-lista/veiculo-lista.component';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
+import { MaterialModule } from "src/app/shared/material.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VeiculoListaComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+        timeOut: 3500,
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: true,
+    }),
+    MaterialModule
+],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

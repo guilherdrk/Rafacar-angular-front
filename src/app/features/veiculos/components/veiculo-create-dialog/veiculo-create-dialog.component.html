@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Cadastrar veículo</h2>
+
+<div mat-dialog-content>
+  <form [formGroup]="form" style="display:grid; gap:12px; padding-top:8px;">
+    <mat-form-field appearance="outline">
+      <mat-label>Modelo</mat-label>
+      <input matInput formControlName="modelo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Marca</mat-label>
+      <input matInput formControlName="marca" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Placa</mat-label>
+      <input matInput formControlName="placa" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Preço diária padrão</mat-label>
+      <input matInput formControlName="precoDiariaPadrao" placeholder="Ex: 150.00" />
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()" [disabled]="saving">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="saving">
+    Salvar
+  </button>
+</div>

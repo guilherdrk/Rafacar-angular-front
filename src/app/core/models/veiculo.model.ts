@@ -9,3 +9,10 @@ export interface VeiculoSummaryDTO {
   status: StatusVeiculo;
   precoDiariaPadrao: number
 }
+
+export interface CreateVeiculoDTO {
+  modelo: string;
+  marca: string;
+  placa: string;
+  precoDiariaPadrao: string;
+}

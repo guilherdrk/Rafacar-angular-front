@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VeiculoListaComponent } from './features/veiculos/page/veiculo-lista/veiculo-lista.component';
+
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -13,8 +13,7 @@ import { MaterialModule } from "src/app/shared/material.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    VeiculoListaComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -22,14 +21,13 @@ import { MaterialModule } from "src/app/shared/material.module";
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-        timeOut: 3500,
-        closeButton: true,
-        progressBar: true,
-        positionClass: 'toast-bottom-right',
-        preventDuplicates: true,
+      timeOut: 3500,
+      closeButton: true,
+      progressBar: true,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
     }),
-    MaterialModule
-],
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],

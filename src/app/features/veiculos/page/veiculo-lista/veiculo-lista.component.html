@@ -48,6 +48,29 @@
         <td mat-cell *matCellDef="let v">R$ {{ v.precoDiariaPadrao }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let v" style="display: flex; padding-top: 8px; padding-bottom: 8px; align-items: center; gap: 8px;">
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="abrirManutencao(v)",
+            [disabled]="!podeEnviarManutencao">
+            <mat-icon>build</mat-icon>
+            Manutenção
+          </button>
+
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="liberar(v)"
+            [disabled]="!podeLiberar(v)">
+            <mat-icon>check_circle</mat-icon>
+            Liberar
+          </button>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 

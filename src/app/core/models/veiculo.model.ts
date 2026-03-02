@@ -16,3 +16,9 @@ export interface CreateVeiculoDTO {
   placa: string;
   precoDiariaPadrao: string;
 }
+
+export interface ManutencaoDTO {
+  descricao: string;
+  custo: string
+}
+

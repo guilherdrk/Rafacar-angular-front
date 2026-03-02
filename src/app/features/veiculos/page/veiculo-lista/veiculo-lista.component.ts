@@ -4,6 +4,7 @@ import { VeiculoApi } from 'src/app/core/api/veiculo.api';
 import { VeiculoSummaryDTO } from 'src/app/core/models/veiculo.model';
 import { VeiculoCreateDialogComponent } from '../../components/veiculo-create-dialog/veiculo-create-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { VeiculoManuntencaoDialogComponent } from '../../components/veiculo-manuntencao-dialog/veiculo-manuntencao-dialog.component';
 
 @Component({
   selector: 'app-veiculo-lista',
@@ -13,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class VeiculoListaComponent implements OnInit {
   loading: boolean = false;
   data: VeiculoSummaryDTO[] = [];
-  displayedColumns = ['id', 'modelo', 'marca', 'placa', 'status', 'preco']
+  displayedColumns = ['id', 'modelo', 'marca', 'placa', 'status', 'preco', 'acoes']
 
   constructor(
     private api: VeiculoApi,
@@ -43,5 +44,35 @@ export class VeiculoListaComponent implements OnInit {
         }
       });
   }
+
+  abrirManutencao(v: VeiculoSummaryDTO){
+    this.dialog.open(VeiculoManuntencaoDialogComponent, {
+      width: '520px',
+      data: { veiculoId: v.id, placa: v.placa},
+    }).afterClosed().subscribe((ok: boolean) => {
+      if(ok) {
+        this.toastr.success('Veiculo enviado para manutenção!');
+        this.load();
+      }
+    });
+  }
+
+  liberar(v: VeiculoSummaryDTO){
+    this.api.liberar(v.id).subscribe({
+      next: () => {
+        this.toastr.success('Veiculo liberado da manutenção!');
+        this.load();
+      }
+    });
+  }
+
+  podeEnviarManutencao(v: VeiculoSummaryDTO) {
+  return v.status === 'DISPONIVEL';
+  }
+
+  podeLiberar(v: VeiculoSummaryDTO){
+    return v.status === 'MANUTENCAO';
+  }
+
 
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { CreateVeiculoDTO, VeiculoSummaryDTO } from "../models/veiculo.model";
+import { CreateVeiculoDTO, ManutencaoDTO, VeiculoSummaryDTO } from "../models/veiculo.model";
 
 
 @Injectable({ providedIn: 'root'})
@@ -17,6 +17,14 @@ export class VeiculoApi{
 
   create(dto: CreateVeiculoDTO) {
     return this.http.post<void>(`${this.base}/veiculos`, dto);
+  }
+
+  manutencao(id: number, dto: ManutencaoDTO){
+    return this.http.post<void>(`${this.base}/veiculos/${id}/manutencao`, dto);
+  }
+
+  liberar(id: number){
+    return this.http.post<void>(`${this.base}/veiculos/${id}/liberar`, []);
   }
 
 }

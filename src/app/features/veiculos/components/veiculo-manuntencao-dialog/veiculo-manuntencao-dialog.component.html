@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Enviar para manutenção</h2>
+
+<div class="content" mat-dialog-content>
+  <p>Veiculo: <b> {{ data.placa }} </b></p>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Descrição</mat-label>
+      <input matInput formControlName="descricao">
+      <mat-error *ngIf="form.get('descricao')?.hasError('required')">Obrigátorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Custo</mat-label>
+      <input matInput formControlName="custo" placeholder="Ex: 300" >
+      <mat-error *ngIf="form.get('custo')?.hasError('required')">Obrigátorio</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()" [disabled]="saving">Cancelar</button>
+  <button mat-raised-button color="warn" (click)="save()" [disabled]="saving">
+    Enviar
+  </button>
+</div>

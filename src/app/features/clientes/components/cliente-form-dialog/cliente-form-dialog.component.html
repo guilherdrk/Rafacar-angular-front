@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{ editando ? 'Editar cliente' : 'Cadastrar cliente' }}</h2>
+
+<div mat-dialog-content>
+  <form [formGroup]="form" style="display:grid; gap:12px; padding-top:8px;">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome completo</mat-label>
+      <input matInput formControlName="nomeCompleto" />
+      <mat-error *ngIf="form.get('nomeCompleto')?.hasError('required')">Obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>CPF</mat-label>
+      <input matInput formControlName="cpf" />
+      <mat-error *ngIf="form.get('cpf')?.hasError('required')">Obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="telefone" />
+      <mat-error *ngIf="form.get('telefone')?.hasError('required')">Obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Endereço</mat-label>
+      <input matInput formControlName="endereco" />
+      <mat-error *ngIf="form.get('endereco')?.hasError('required')">Obrigatório</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()" [disabled]="saving">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="saving">
+    Salvar
+  </button>
+</div>

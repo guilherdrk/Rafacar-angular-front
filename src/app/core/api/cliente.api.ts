@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { ClienteDTO, ClienteSummaryDTO, VeiculoSummaryDTO } from "../models/veiculo.model";
+import { ClienteDTO, ClienteSummaryDTO } from "../models/cliente.model";
 
 @Injectable({ providedIn: 'root'})
 export class ClienteApi{
@@ -20,7 +20,7 @@ export class ClienteApi{
   }
 
   update(id: number, dto: ClienteDTO){
-    return this.http.post<ClienteDTO>(`${this.base}/clientes/${id}`, dto)
+    return this.http.put<ClienteDTO>(`${this.base}/clientes/${id}`, dto)
   }
 
 }

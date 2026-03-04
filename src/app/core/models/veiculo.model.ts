@@ -19,6 +19,17 @@ export interface CreateVeiculoDTO {
 
 export interface ManutencaoDTO {
   descricao: string;
-  custo: string
+  custo: string;
+}
+
+export interface ClienteDTO {
+  nomeCompleto: string;
+  cpf: string;
+  telefone: string;
+  endereco: string;
+}
+
+export interface ClienteSummaryDTO extends ClienteDTO{
+  id: number;
 }
 

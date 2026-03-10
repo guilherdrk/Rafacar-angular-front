@@ -1,0 +1,29 @@
+
+
+.content{
+  padding:16px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+mat-card{
+
+  form{
+    display:grid;
+    gap:12px;
+  }
+}
+
+.data-form{
+  display:grid;
+  gap:12px;
+  grid-template-columns: 1fr 160px;
+}
+
+.button-check{
+  display:flex;
+  justify-content:flex-end;
+}

@@ -1,1 +1,45 @@
-<p>aluguel-devolucao works!</p>
+<mat-toolbar>
+  <span>Devolução</span>
+</mat-toolbar>
+
+<div class="content">
+  <mat-card>
+    <div class="card">
+      <form [formGroup]="form">
+        <mat-form-field appearance="outline">
+          <mat-label>ID do Aluguel</mat-label>
+          <input matInput type="number" formControlName="aluguelId"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Combustível na devolução</mat-label>
+          <mat-select formControlName="combustivelDevolucao">
+            <mat-option *ngFor="let x of combustiveis" [value]="x.value">
+              {{ x.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="button-config">
+          <button mat-raised-button color="primary" (click)="voltar()" [disabled]="saving">
+            <mat-icon>cancel</mat-icon>
+            Cancelar devolução
+          </button>
+          <button mat-raised-button color="primary" (click)="devolver()" [disabled]="saving">
+            <mat-icon>assignment_turned_in</mat-icon>
+            Confirmar devolução
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="resultado" class="resultado">
+      <h3>Resumo</h3>
+      <p><b>Aluguel:</b> #{{ resultado.id }}</p>
+      <p><b>Valor diária:</b> R${{ resultado.valorDiariaAcordado }}</p>
+      <p><b>Valor total:</b> R${{ resultado.valorTotal }}</p>
+      <p><b>Retirada: </b> {{ formatar( resultado.dataRetirada ) | date:'dd/MM/yyyy HH:mm'}}</p>
+      <p><b>Devolução: </b> {{ formatar( resultado.dataDevolucaoReal) | date:'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+  </mat-card>
+</div>

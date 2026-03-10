@@ -9,6 +9,8 @@ import { VeiculoSummaryDTO } from 'src/app/core/models/veiculo.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { toLocalDateTime } from 'src/app/core/utils/datetime';
+import { AluguelResponseDTO } from 'src/app/core/models/aluguel.model';
+import { parseLocalDateTime } from 'src/app/core/utils/datetime-view';
 
 @Component({
   selector: 'app-aluguel-create',
@@ -33,6 +35,8 @@ export class AluguelCreateComponent implements OnInit {
     precoDiariaCustomizada: [''],
   });
 
+  ultimo?: AluguelResponseDTO;
+
   constructor(
     private fb: FormBuilder,
     private clienteApi: ClienteApi,
@@ -43,9 +47,10 @@ export class AluguelCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadRefs();
   }
 
-  loadRefs(){
+  loadRefs() {
     this.loading = true;
 
     this.clienteApi.list().subscribe({
@@ -58,7 +63,7 @@ export class AluguelCreateComponent implements OnInit {
     });
   }
 
-  private buildDateTime(): string{
+  private buildDateTime(): string {
     const date: Date = this.form.value.devolucaoData!;
     const hora: string = this.form.value.devolucaoHora!;
     const [hh, mm] = hora.split(':').map(Number);
@@ -89,15 +94,23 @@ export class AluguelCreateComponent implements OnInit {
 
     this.aluguelApi.criar(dto).subscribe({
       next: (res) => {
+        this.ultimo = res;
         this.toastr.success(`Aluguel #${res.id} criado com sucesso!`);
-        // opcional: já ir pra devolução
-        // this.router.navigate(['/alugueis/devolucao'], { queryParams: { id: res.id }});
-        this.form.reset({ devolucaoHora: '12:00' });
-        this.loadRefs();
+        // this.router.navigate(['/alugueis/devolucao'], { queryParams: { id: res.id } });
       },
       error: () => (this.saving = false),
       complete: () => (this.saving = false),
     });
   }
 
+  irParaDevolucao() {
+    if (!this.ultimo) {
+      return;
+    }
+    this.router.navigate(['/alugueis/devolucao', { queryParams: { id: this.ultimo.id } }])
+  }
+
+  formatar(dt?: string): Date | null {
+    return parseLocalDateTime(dt);
+  }
 }

@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AluguelApi } from 'src/app/core/api/aluguel.api';
+import { AluguelCompletoResponseDTO } from 'src/app/core/models/aluguel.model';
+import { NIVEL_COMBUSTIVEL_OPCOES } from 'src/app/core/models/enums';
+import { toLocalDateTime } from 'src/app/core/utils/datetime';
+import { parseLocalDateTime } from 'src/app/core/utils/datetime-view';
 
 @Component({
   selector: 'app-aluguel-devolucao',
@@ -7,9 +15,61 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AluguelDevolucaoComponent implements OnInit {
 
-  constructor() { }
+  saving: boolean = false;
+  combustiveis = NIVEL_COMBUSTIVEL_OPCOES;
+
+  resultado?: AluguelCompletoResponseDTO;
+
+  form = this.fb.group({
+    aluguelId: [null as any, Validators.required],
+    combustivelDevolucao: [null as any, Validators.required]
+  });
+
+  constructor(
+    private fb: FormBuilder,
+    private api: AluguelApi,
+    private toastr: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    const id = this.route.snapshot.queryParamMap.get('id');
+    if(id){
+      this.form.patchValue({ aluguelId: Number(id) });
+    };
   }
+
+  devolver(){
+    if(this.form.invalid){
+      this.form.markAllAsTouched();
+      return
+    }
+    this.saving = true;
+
+    const id = Number(this.form.value.aluguelId);
+    const dto = {
+      combustivelDevolucao: this.form.value.combustivelDevolucao
+    };
+
+    this.api.devolver(id, dto).subscribe({
+      next: (res?) => {
+        this.resultado = res;
+        this.toastr.success(`Devolução concluida! Total: R$ ${res?.valorTotal}`);
+      },
+      error: () => (this.saving = false),
+      complete: () => (this.saving = false),
+    });
+  }
+  voltar(){
+    this.router.navigate(['/alugueis/novo'])
+  }
+
+  formatar(dt?: string): Date | null{
+    return parseLocalDateTime(dt);
+  }
+
+
+
 
 }

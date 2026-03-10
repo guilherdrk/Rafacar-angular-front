@@ -19,6 +19,7 @@ export interface CreateVeiculoDTO {
 
 export interface ManutencaoDTO {
   descricao: string;
-  custo: string
+  custo: string;
 }
+
 

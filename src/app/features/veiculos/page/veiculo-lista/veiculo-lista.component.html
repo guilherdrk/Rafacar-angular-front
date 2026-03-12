@@ -55,7 +55,7 @@
             mat-stroked-button
             color="warn"
             (click)="abrirManutencao(v)",
-            [disabled]="!podeEnviarManutencao">
+            [disabled]="!podeEnviarManutencao(v)">
             <mat-icon>build</mat-icon>
             Manutenção
           </button>

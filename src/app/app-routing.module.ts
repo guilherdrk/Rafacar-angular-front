@@ -12,6 +12,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/clientes/clientes.module').then(m => m.ClientesModule),
   },
+  {
+    path: 'alugueis',
+    loadChildren: () =>
+      import('./features/alugueis/alugueis.module').then(m => m.AlugueisModule),
+  },
   { path: '', pathMatch: 'full', redirectTo: 'veiculos' },
   { path: '**', redirectTo: 'veiculos' },
 ];

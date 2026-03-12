@@ -1,0 +1,110 @@
+:host {
+  display: block;
+}
+
+.page {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.card {
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.table-wrap {
+  max-height: 65vh;
+  overflow: auto;
+}
+
+.table {
+  width: 100%;
+}
+.table th.mat-header-cell {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.table th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.table td {
+  white-space: nowrap;
+}
+
+.table tr.mat-row:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.actions {
+  text-align: right;
+  padding-right: 0;
+}
+
+.paginator {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Chips de status */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-open {
+  background: rgba(255, 193, 7, 0.18);
+}
+
+.status-open::before {
+  background: rgba(255, 193, 7, 1);
+}
+
+.status-closed {
+  background: rgba(76, 175, 80, 0.16);
+}
+
+.status-closed::before {
+  background: rgba(76, 175, 80, 1);
+}
+
+.status-late {
+  background: rgba(244, 67, 54, 0.14);
+}
+
+.status-late::before {
+  background: rgba(244, 67, 54, 1);
+}
+
+/* Destaque de atraso */
+.row-late {
+  background: rgba(244, 67, 54, 0.06);
+}

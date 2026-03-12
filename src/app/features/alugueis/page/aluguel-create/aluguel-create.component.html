@@ -1,0 +1,134 @@
+<mat-toolbar>
+  <span>Novo Aluguel</span>
+  <span style="flex: 1 1 auto"></span>
+  <button mat-stroked-button (click)="loadRefs()">
+    <mat-icon>refresh</mat-icon>
+    Recarregar
+  </button>
+  <button mat-stroked-button (click)="irParaDevolucao()">
+    Ir para devolução
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="content">
+  <mat-card>
+    <div style="display: grid; gap: 12px; padding: 16px">
+      <div
+        *ngIf="loading"
+        style="display: flex; justify-content: center; padding: 16px"
+      >
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <form *ngIf="!loading" [formGroup]="form">
+        <mat-form-field appearance="outline">
+          <mat-label>Cliente</mat-label>
+          <mat-select formControlName="clienteId">
+            <mat-option *ngFor="let c of clientes" [value]="c.id">
+              {{ c.nomeCompleto }} ({{ c.cpf }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Veículo (disponível)</mat-label>
+          <mat-select formControlName="veiculoId">
+            <mat-option *ngFor="let v of veiculosDisponiveis" [value]="v.id">
+              {{ v.marca }} {{ v.modelo }} - {{ v.placa }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="data-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Devolução prevista (data)</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="devolucaoData"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hora</mat-label>
+            <input matInput type="time" formControlName="devolucaoHora" />
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Combustível na retirada</mat-label>
+          <mat-select formControlName="combustivelRetirada">
+            <mat-option *ngFor="let x of combustiveis" [value]="x.value">
+              {{ x.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Diária customizada (opcional)</mat-label>
+          <input
+            matInput
+            formControlName="precoDiariaCustomizada"
+            placeholder="Ex: 199.90"
+          />
+        </mat-form-field>
+
+        <div class="button-check">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="salvar()"
+            [disabled]="saving"
+          >
+            <mat-icon>check</mat-icon>
+            Confirmar aluguel
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+
+  <mat-card *ngIf="ultimo" style="margin-top: 16px">
+    <div style="padding: 16px; display: grid; gap: 8px">
+      <h3 style="margin: 0">Resumo do aluguel criado</h3>
+
+      <p style="margin: 0"><b>ID:</b> #{{ ultimo.id }}</p>
+      <p style="margin: 0">
+        <b>Cliente:</b> {{ ultimo.clienteNome }} ({{ ultimo.clienteId }})
+      </p>
+      <p style="margin: 0">
+        <b>Veículo:</b> {{ ultimo.veiculoModelo }} ({{ ultimo.veiculoId }})
+      </p>
+      <p style="margin: 0">
+        <b>Retirada:</b>
+        {{ formatar(ultimo.dataRetirada) | date: "dd/MM/yyyy HH:mm" }}
+      </p>
+      <p style="margin: 0">
+        <b>Devolução prevista:</b>
+        {{ formatar(ultimo.dataDevolucaoPrevista) | date: "dd/MM/yyyy HH:mm" }}
+      </p>
+      <p style="margin: 0"><b>Diária:</b> R$ {{ ultimo.valorDiaria }}</p>
+
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          gap: 8px;
+          margin-top: 8px;
+        "
+      >
+        <button mat-stroked-button (click)="ultimo = undefined">Limpar</button>
+        <button mat-raised-button color="primary" (click)="irParaDevolucao()">
+          <mat-icon>arrow_forward</mat-icon>
+          Ir para devolução
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

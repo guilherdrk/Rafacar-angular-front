@@ -3,7 +3,7 @@ import { NivelCombustivel } from "./enums";
 
 export interface AluguelRequestDTO {
   veiculoId: number;
-  dataDevolucaoPrevista: string; // LocalDateTime sem Z
+  dataDevolucaoPrevista: string; 
   combustivelRetirada: NivelCombustivel;
   precoDiariaCustomizada?: string;
   clienteId: number;

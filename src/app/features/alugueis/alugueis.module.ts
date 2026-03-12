@@ -6,12 +6,14 @@ import { AluguelCreateComponent } from './page/aluguel-create/aluguel-create.com
 import { AluguelDevolucaoComponent } from './page/aluguel-devolucao/aluguel-devolucao.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from "src/app/shared/material.module";
+import { AluguelListaComponent } from './page/aluguel-lista/aluguel-lista.component';
 
 
 @NgModule({
   declarations: [
     AluguelCreateComponent,
-    AluguelDevolucaoComponent
+    AluguelDevolucaoComponent,
+    AluguelListaComponent
   ],
   imports: [
     CommonModule,

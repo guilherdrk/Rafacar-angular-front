@@ -17,6 +17,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/alugueis/alugueis.module').then(m => m.AlugueisModule),
   },
+  {
+    path: 'financeiro',
+    loadChildren: () =>
+      import('./features/financeiro/financeiro.module').then(m => m.FinanceiroModule),
+  },
   { path: '', pathMatch: 'full', redirectTo: 'veiculos' },
   { path: '**', redirectTo: 'veiculos' },
 ];

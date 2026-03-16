@@ -113,4 +113,8 @@ export class AluguelCreateComponent implements OnInit {
   formatar(dt?: string): Date | null {
     return parseLocalDateTime(dt);
   }
+
+  go(path: string) {
+    this.router.navigateByUrl(path);
+  }
 }

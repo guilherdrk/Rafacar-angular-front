@@ -85,5 +85,9 @@ export class AluguelListaComponent implements OnInit {
     if (a.dataDevolucaoReal) return 'DEVOLVIDO';
     return this.estaAtrasado(a) ? 'ATRASADO' : 'ABERTO';
   }
+  
+  go(path: string) {
+    this.router.navigateByUrl(path);
+  }
 
 }

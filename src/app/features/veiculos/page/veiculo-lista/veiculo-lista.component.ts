@@ -5,6 +5,7 @@ import { VeiculoSummaryDTO } from 'src/app/core/models/veiculo.model';
 import { VeiculoCreateDialogComponent } from '../../components/veiculo-create-dialog/veiculo-create-dialog.component';
 import { ToastrService } from 'ngx-toastr';
 import { VeiculoManuntencaoDialogComponent } from '../../components/veiculo-manuntencao-dialog/veiculo-manuntencao-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-veiculo-lista',
@@ -19,7 +20,8 @@ export class VeiculoListaComponent implements OnInit {
   constructor(
     private api: VeiculoApi,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +75,11 @@ export class VeiculoListaComponent implements OnInit {
   podeLiberar(v: VeiculoSummaryDTO){
     return v.status === 'MANUTENCAO';
   }
+
+  go(path: string) {
+    this.router.navigateByUrl(path);
+  }
+
 
 
 }

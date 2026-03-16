@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
 import { MaterialModule } from "src/app/shared/material.module";
+import { HomeDashboardComponent } from './features/home/page/home-dashboard/home-dashboard.component';
 
 @NgModule({
   declarations: [

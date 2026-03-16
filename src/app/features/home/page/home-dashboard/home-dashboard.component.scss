@@ -1,0 +1,60 @@
+.hero {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.hero-sub {
+  margin-top: 4px;
+  opacity: .75;
+}
+
+.grid {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.nav-card {
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 16px;
+}
+
+.nav-card:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.nav-card-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-card-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.nav-card-body {
+  margin-top: 8px;
+  opacity: .75;
+}
+
+.nav-card-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}

@@ -2,6 +2,11 @@
   <span>Financeiro</span>
   <span class="toolbar-spacer"></span>
 
+  <button mat-raised-button color="primary" (click)="go('')" style="margin-right: 8px;">
+    <mat-icon>home</mat-icon>
+    Home
+  </button>
+
   <button mat-stroked-button (click)="carregarTudo()" disabled="loading">
     <mat-icon>refresh</mat-icon>
     Atualizar

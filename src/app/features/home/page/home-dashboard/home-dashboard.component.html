@@ -1,0 +1,62 @@
+<mat-toolbar>
+  <span>RafaCar</span>
+  <span class="toolbar-spacer"></span>
+</mat-toolbar>
+
+<div class="page">
+  <mat-card class="card">
+    <div class="hero">
+      <div>
+        <div class="hero-title">Painel principal</div>
+        <div class="hero-sub">Acesse rapidamente as áreas do sistema.</div>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="grid">
+    <mat-card class="nav-card" (click)="go('/alugueis')">
+      <div class="nav-card-header">
+        <mat-icon>assignment</mat-icon>
+        <div class="nav-card-title">Aluguéis</div>  
+      </div>
+      <div class="nav-card-body">Listar em aberto/devolvidos, criar e fazer devolução.</div>
+      <div class="nav-card-actions">
+        <button mat-stroked-button color="primary" (click)="stop($event); go('/alugueis')">Abrir</button>
+        <button mat-raised-button color="primary" (click)="stop($event); go('/alugueis/novo')">Novo aluguel</button>
+      </div>
+    </mat-card>
+
+    <mat-card class="nav-card" (click)="go('/veiculos')">
+      <div class="nav-card-header">
+        <mat-icon>directions_car</mat-icon>
+        <div class="nav-card-title">Veículos</div>
+      </div>
+      <div class="nav-card-body">Cadastrar, enviar para manutenção e liberar.</div>
+      <div class="nav-card-actions">
+        <button mat-stroked-button color="primary" (click)="stop($event); go('/veiculos')">Abrir</button>
+      </div>
+    </mat-card>
+
+    <mat-card class="nav-card" (click)="go('/clientes')">
+      <div class="nav-card-header">
+        <mat-icon>people</mat-icon>
+        <div class="nav-card-title">Clientes</div>
+      </div>
+      <div class="nav-card-body">Cadastrar e editar clientes.</div>
+      <div class="nav-card-actions">
+        <button mat-stroked-button color="primary" (click)="stop($event); go('/clientes')">Abrir</button>
+      </div>
+    </mat-card>
+
+    <mat-card class="nav-card" (click)="go('/financeiro')">
+      <div class="nav-card-header">
+        <mat-icon>payments</mat-icon>
+        <div class="nav-card-title">Financeiro</div>
+      </div>
+      <div class="nav-card-body">Consultar lucro por mês e ver histórico.</div>
+      <div class="nav-card-actions">
+        <button mat-stroked-button color="primary" (click)="stop($event); go('/financeiro')">Abrir</button>
+      </div>
+    </mat-card>
+  </div>
+</div>

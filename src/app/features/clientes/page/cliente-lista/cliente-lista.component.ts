@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteFormDialogComponent } from '../../components/cliente-form-dialog/cliente-form-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-lista',
@@ -19,7 +20,8 @@ export class ClienteListaComponent implements OnInit {
   constructor(
     private api: ClienteApi,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -57,5 +59,7 @@ export class ClienteListaComponent implements OnInit {
       });
   }
 
-
+  go(path: string) {
+    this.router.navigateByUrl(path);
+  }
 }

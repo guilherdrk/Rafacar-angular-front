@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { FinanceiroApi } from 'src/app/core/api/financeiro.api';
 
@@ -39,7 +40,7 @@ export class FinanceiroDashboardComponent implements OnInit {
   // resultado do mês selecionado
   lucroSelecionado?: string;
 
-  constructor(private fb: FormBuilder, private api: FinanceiroApi) { }
+  constructor(private fb: FormBuilder, private api: FinanceiroApi, private router: Router) { }
 
   ngOnInit(): void {
     const now = new Date();
@@ -108,5 +109,9 @@ export class FinanceiroDashboardComponent implements OnInit {
 
   private mesLabel(mes: number) {
     return this.meses.find(x => x.value === mes)?.label ?? String(mes);
+  }
+
+  go(path: string) {
+    this.router.navigateByUrl(path);
   }
 }

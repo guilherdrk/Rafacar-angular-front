@@ -69,6 +69,9 @@ export class AluguelDevolucaoComponent implements OnInit {
     return parseLocalDateTime(dt);
   }
 
+  go(path: string) {
+    this.router.navigateByUrl(path);
+  }
 
 
 

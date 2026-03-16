@@ -2,6 +2,11 @@
   <span>Veículos</span>
   <span class="toolbar-spacer"></span>
 
+  <button mat-raised-button color="primary" style="margin-right: 8px;" (click)="go('')">
+    <mat-icon>home</mat-icon>
+    Home
+  </button>
+
   <button mat-stroked-button (click)="load()">
     <mat-icon>refresh</mat-icon>
     Atualizar
@@ -80,5 +85,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
+
   </mat-card>
+
 </div>

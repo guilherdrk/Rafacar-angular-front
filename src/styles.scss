@@ -2,3 +2,52 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.page {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.table-wrap {
+  overflow: auto;
+}
+
+.table {
+  width: 100%;
+}
+
+.table th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.table td {
+  white-space: nowrap;
+}
+
+.table tr.mat-row:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

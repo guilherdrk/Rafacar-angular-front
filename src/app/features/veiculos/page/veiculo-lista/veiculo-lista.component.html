@@ -1,78 +1,84 @@
 <mat-toolbar>
   <span>Veículos</span>
-  <span class="distance-toolbar"></span>
-  <button mat-raised-button color="primary" (click)="load()">
+  <span class="toolbar-spacer"></span>
+
+  <button mat-stroked-button (click)="load()">
     <mat-icon>refresh</mat-icon>
     Atualizar
   </button>
-  <button mat-raised-button color="primary" (click)="abrirCadastro()">
-  <mat-icon>add</mat-icon>
-  Cadastrar
-</button>
+
+  <button mat-raised-button color="primary" style="margin-left:8px;" (click)="abrirCadastro()">
+    <mat-icon>add</mat-icon>
+    Cadastrar
+  </button>
 </mat-toolbar>
 
-<div class="content">
-  <div class="loading-content" *ngIf="loading">
-    <mat-spinner></mat-spinner>
-  </div>
+<div class="page">
+  <mat-card class="card">
+    <div *ngIf="loading" style="display:flex; justify-content:center; padding:24px;">
+      <mat-spinner></mat-spinner>
+    </div>
 
-  <table mat-table [dataSource]="data" *ngIf="!loading" class="mat-elevation-z8" style="width: 100%;">
+    <div class="table-wrap" *ngIf="!loading">
+      <table mat-table [dataSource]="data" class="table">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let v">{{ v.id }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> # </th>
-        <td mat-cell *matCellDef="let v"> {{v.id}} </td>
-      </ng-container>
+        <ng-container matColumnDef="modelo">
+          <th mat-header-cell *matHeaderCellDef>Modelo</th>
+          <td mat-cell *matCellDef="let v">{{ v.modelo }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="modelo">
-        <th mat-header-cell *matHeaderCellDef> Modelo </th>
-        <td mat-cell *matCellDef="let v"> {{v.modelo}} </td>
-      </ng-container>
+        <ng-container matColumnDef="marca">
+          <th mat-header-cell *matHeaderCellDef>Marca</th>
+          <td mat-cell *matCellDef="let v">{{ v.marca }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="marca">
-        <th mat-header-cell *matHeaderCellDef> Marca </th>
-        <td mat-cell *matCellDef="let v"> {{v.marca}} </td>
-      </ng-container>
+        <ng-container matColumnDef="placa">
+          <th mat-header-cell *matHeaderCellDef>Placa</th>
+          <td mat-cell *matCellDef="let v">{{ v.placa }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="placa">
-        <th mat-header-cell *matHeaderCellDef> Placa </th>
-        <td mat-cell *matCellDef="let v"> {{v.placa}} </td>
-      </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let v">{{ v.status }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let v"> {{v.status}} </td>
-      </ng-container>
+        <ng-container matColumnDef="preco">
+          <th mat-header-cell *matHeaderCellDef >Diária</th>
+          <td mat-cell *matCellDef="let v" >R$ {{ v.precoDiariaPadrao }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="preco">
-        <th mat-header-cell *matHeaderCellDef> Preço Diária </th>
-        <td mat-cell *matCellDef="let v">R$ {{ v.precoDiariaPadrao }}</td>
-      </ng-container>
+        <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <td mat-cell *matCellDef="let v">
+            <div class="actions">
+              <button
+                mat-stroked-button
+                color="warn"
+                (click)="abrirManutencao(v)"
+                [disabled]="!podeEnviarManutencao(v)">
+                <mat-icon>build</mat-icon>
+                Manutenção
+              </button>
 
-      <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef>Ações</th>
-        <td mat-cell *matCellDef="let v" style="display: flex; padding-top: 8px; padding-bottom: 8px; align-items: center; gap: 8px;">
-          <button
-            mat-stroked-button
-            color="warn"
-            (click)="abrirManutencao(v)",
-            [disabled]="!podeEnviarManutencao(v)">
-            <mat-icon>build</mat-icon>
-            Manutenção
-          </button>
+              <button
+                mat-stroked-button
+                color="primary"
+                (click)="liberar(v)"
+                [disabled]="!podeLiberar(v)">
+                <mat-icon>check_circle</mat-icon>
+                Liberar
+              </button>
+            </div>
+          </td>
+        </ng-container>
 
-          <button
-            mat-stroked-button
-            color="primary"
-            (click)="liberar(v)"
-            [disabled]="!podeLiberar(v)">
-            <mat-icon>check_circle</mat-icon>
-            Liberar
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-  </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card>
 </div>

@@ -2,7 +2,12 @@
   <span>Veículos</span>
   <span class="toolbar-spacer"></span>
 
-  <button mat-raised-button color="primary" style="margin-right: 8px;" (click)="go('')">
+  <button
+    mat-raised-button
+    color="primary"
+    style="margin-right: 8px"
+    (click)="go('')"
+  >
     <mat-icon>home</mat-icon>
     Home
   </button>
@@ -12,7 +17,12 @@
     Atualizar
   </button>
 
-  <button mat-raised-button color="primary" style="margin-left:8px;" (click)="abrirCadastro()">
+  <button
+    mat-raised-button
+    color="primary"
+    style="margin-left: 8px"
+    (click)="abrirCadastro()"
+  >
     <mat-icon>add</mat-icon>
     Cadastrar
   </button>
@@ -20,7 +30,10 @@
 
 <div class="page">
   <mat-card class="card">
-    <div *ngIf="loading" style="display:flex; justify-content:center; padding:24px;">
+    <div
+      *ngIf="loading"
+      style="display: flex; justify-content: center; padding: 24px"
+    >
       <mat-spinner></mat-spinner>
     </div>
 
@@ -52,8 +65,8 @@
         </ng-container>
 
         <ng-container matColumnDef="preco">
-          <th mat-header-cell *matHeaderCellDef >Diária</th>
-          <td mat-cell *matCellDef="let v" >R$ {{ v.precoDiariaPadrao }}</td>
+          <th mat-header-cell *matHeaderCellDef>Diária</th>
+          <td mat-cell *matCellDef="let v">R$ {{ v.precoDiariaPadrao }}</td>
         </ng-container>
 
         <ng-container matColumnDef="acoes">
@@ -62,9 +75,19 @@
             <div class="actions">
               <button
                 mat-stroked-button
+                color="primary"
+                (click)="abrirEdicao(v)"
+                [disabled]="v.status !== 'DISPONIVEL'"
+              >
+                <mat-icon>edit</mat-icon>
+                Editar
+              </button>
+              <button
+                mat-stroked-button
                 color="warn"
                 (click)="abrirManutencao(v)"
-                [disabled]="!podeEnviarManutencao(v)">
+                [disabled]="!podeEnviarManutencao(v)"
+              >
                 <mat-icon>build</mat-icon>
                 Manutenção
               </button>
@@ -73,7 +96,8 @@
                 mat-stroked-button
                 color="primary"
                 (click)="liberar(v)"
-                [disabled]="!podeLiberar(v)">
+                [disabled]="!podeLiberar(v)"
+              >
                 <mat-icon>check_circle</mat-icon>
                 Liberar
               </button>
@@ -82,10 +106,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
     </div>
-
   </mat-card>
-
 </div>

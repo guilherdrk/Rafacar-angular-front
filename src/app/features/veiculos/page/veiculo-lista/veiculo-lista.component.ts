@@ -47,6 +47,18 @@ export class VeiculoListaComponent implements OnInit {
       });
   }
 
+  abrirEdicao(v: VeiculoSummaryDTO){
+    this.dialog.open(VeiculoCreateDialogComponent, {
+      width: '520px',
+      data: { veiculo: v },
+    }).afterClosed().subscribe((ok: boolean) => {
+      if(ok){
+        this.toastr.success('Veículo atualizado com sucesso!');
+        this.load();
+      }
+    });
+  }
+
   abrirManutencao(v: VeiculoSummaryDTO){
     this.dialog.open(VeiculoManuntencaoDialogComponent, {
       width: '520px',
@@ -67,6 +79,8 @@ export class VeiculoListaComponent implements OnInit {
       }
     });
   }
+
+
 
   podeEnviarManutencao(v: VeiculoSummaryDTO) {
   return v.status === 'DISPONIVEL';

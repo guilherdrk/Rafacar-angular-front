@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Cadastrar veículo</h2>
+<h2 mat-dialog-title>{{ editando ? 'Editar veículo' : 'Cadastrar veículo' }}</h2>
 
 <div mat-dialog-content>
   <form [formGroup]="form" style="display:grid; gap:12px; padding-top:8px;">

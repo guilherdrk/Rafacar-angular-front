@@ -22,4 +22,9 @@ export interface ManutencaoDTO {
   custo: string;
 }
 
-
+export interface UpdateVeiculoDTO{
+  modelo: string,
+  marca: string,
+  placa: string,
+  precoDiariaPadrao: string
+}

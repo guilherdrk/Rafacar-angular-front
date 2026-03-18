@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteFormDialogComponent } from '../../components/cliente-form-dialog/cliente-form-dialog.component';
 import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cliente-lista',
@@ -13,9 +14,12 @@ import { Router } from '@angular/router';
 })
 export class ClienteListaComponent implements OnInit {
   loading: boolean = false;
-  data: ClienteSummaryDTO[] = []
-  displayedColumns = ['id', 'nomeCompleto', 'cpf', 'telefone', 'endereco', 'acoes'];
 
+  displayedColumns = ['id', 'nomeCompleto', 'cpf', 'telefone', 'endereco', 'acoes'];
+  data: ClienteSummaryDTO[] = []
+  total = 0;
+  page = 0;
+  size = 0;
 
   constructor(
     private api: ClienteApi,
@@ -30,11 +34,22 @@ export class ClienteListaComponent implements OnInit {
 
   load() {
     this.loading = true;
-    this.api.list().subscribe({
-      next: (res) => (this.data = res),
+    this.api.listPaged({ page: this.page, size: this.size }).subscribe({
+      next: (res) => {
+        this.data = res.content;
+        this.total = res.totalElements;
+        this.page = res.number;
+        this.size = res.size;
+      },
       error: () => { },
       complete: () => (this.loading = false),
     });
+  }
+
+  onPage(e: PageEvent){
+    this.page = e.pageIndex;
+    this.size = e.pageSize;
+    this.load();
   }
 
   abrirCadastro() {

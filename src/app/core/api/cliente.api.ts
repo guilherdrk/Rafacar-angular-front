@@ -12,8 +12,8 @@ export class ClienteApi{
     private http: HttpClient
   ){}
 
-  list(){
-    return this.http.get<ClienteSummaryDTO[]>(`${this.base}/clientes`)
+  listNormal(){
+    return this.http.get<ClienteSummaryDTO[]>(`${this.base}/clientes/listNormal`);
   }
 
   listPaged(params: { page: number; size: number}){

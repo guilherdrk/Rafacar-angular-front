@@ -53,9 +53,10 @@ export class AluguelCreateComponent implements OnInit {
   loadRefs() {
     this.loading = true;
 
-    this.clienteApi.list().subscribe({
+    this.clienteApi.listNormal().subscribe({
       next: (c) => (this.clientes = c),
     });
+
 
     this.veiculoApi.list().subscribe({
       next: (v) => (this.veiculosDisponiveis = v.filter(x => x.status === "DISPONIVEL")),

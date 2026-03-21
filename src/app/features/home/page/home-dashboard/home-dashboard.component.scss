@@ -1,60 +1,88 @@
 .hero {
-  padding: 16px;
+  padding: 28px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 159, 67, 0.18), rgba(199, 242, 54, 0.08)),
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .hero-title {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .hero-sub {
-  margin-top: 4px;
-  opacity: .75;
+  margin-top: 8px;
+  color: var(--text-muted);
+  max-width: 540px;
 }
 
 .grid {
-  margin-top: 12px;
+  margin-top: 16px;
   display: grid;
-  gap: 12px;
+  gap: 16px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 @media (max-width: 900px) {
-  .grid { grid-template-columns: 1fr; }
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .nav-card {
   cursor: pointer;
-  border-radius: 12px;
-  overflow: hidden;
-  padding: 16px;
+  border-radius: 18px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+    var(--card);
 }
 
 .nav-card:hover {
-  background: rgba(0, 0, 0, 0.03);
+  transform: translateY(-4px);
+  background: var(--card-hover);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.30);
 }
 
 .nav-card-header {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
 }
 
+.nav-card-header mat-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(255, 159, 67, 0.12);
+  color: var(--primary);
+}
+
 .nav-card-title {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 .nav-card-body {
-  margin-top: 8px;
-  opacity: .75;
+  margin-top: 10px;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
 .nav-card-actions {
-  margin-top: 14px;
+  margin-top: 18px;
   display: flex;
   gap: 8px;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }

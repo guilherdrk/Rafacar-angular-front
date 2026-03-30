@@ -1,9 +1,9 @@
 import { NivelCombustivel } from "./enums";
 
-
 export interface AluguelRequestDTO {
   veiculoId: number;
-  dataDevolucaoPrevista: string; 
+  dataRetirada?: string;
+  dataDevolucaoPrevista: string;
   combustivelRetirada: NivelCombustivel;
   precoDiariaCustomizada?: string;
   clienteId: number;
@@ -23,6 +23,7 @@ export interface AluguelResponseDTO {
 
 export interface AluguelDevolucaoDTO {
   combustivelDevolucao: NivelCombustivel;
+  dataDevolucaoReal?: string;
 }
 
 export interface AluguelCompletoResponseDTO {

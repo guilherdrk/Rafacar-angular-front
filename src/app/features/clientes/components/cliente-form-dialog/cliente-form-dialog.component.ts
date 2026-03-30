@@ -18,8 +18,6 @@ export class ClienteFormDialogComponent{
   form = this.fb.group({
     nomeCompleto: ['', [Validators.required, Validators.minLength(3)]],
     cpf: ['', [Validators.required, Validators.minLength(11)]],
-    telefone: ['', [Validators.required, Validators.minLength(8)]],
-    endereco: ['', [Validators.required, Validators.minLength(3)]],
   });
 
    get editando() {
@@ -36,8 +34,6 @@ export class ClienteFormDialogComponent{
       this.form.patchValue({
         nomeCompleto: data.cliente.nomeCompleto,
         cpf: data.cliente.cpf,
-        telefone: data.cliente.telefone,
-        endereco: data.cliente.endereco,
       });
     }
   }

@@ -3,7 +3,12 @@
 
   <span style="flex: 1 1 auto"></span>
 
-  <button mat-raised-button color="primary" (click)="go('')" style="margin-right: 8px;">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="go('')"
+    style="margin-right: 8px"
+  >
     <mat-icon>home</mat-icon>
     Home
   </button>
@@ -15,7 +20,7 @@
       <form [formGroup]="form">
         <mat-form-field appearance="outline">
           <mat-label>ID do Aluguel</mat-label>
-          <input matInput type="number" formControlName="aluguelId"/>
+          <input matInput type="number" formControlName="aluguelId" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -27,12 +32,46 @@
           </mat-select>
         </mat-form-field>
 
+        <div class="data-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Data da devolução</mat-label>
+            <input
+              matInput
+              [matDatepicker]="pickerDevolucao"
+              formControlName="devolucaoData"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickerDevolucao"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickerDevolucao></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hora da devolução</mat-label>
+            <input matInput type="time" formControlName="devolucaoHora" />
+            <mat-hint
+              >Opcional. Se não informar a data, o back usa agora.</mat-hint
+            >
+          </mat-form-field>
+        </div>
+
         <div class="button-config">
-          <button mat-raised-button color="primary" (click)="voltar()" [disabled]="saving">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="voltar()"
+            [disabled]="saving"
+          >
             <mat-icon>cancel</mat-icon>
             Cancelar devolução
           </button>
-          <button mat-raised-button color="primary" (click)="devolver()" [disabled]="saving">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="devolver()"
+            [disabled]="saving"
+          >
             <mat-icon>assignment_turned_in</mat-icon>
             Confirmar devolução
           </button>
@@ -45,8 +84,14 @@
       <p><b>Aluguel:</b> #{{ resultado.id }}</p>
       <p><b>Valor diária:</b> R${{ resultado.valorDiariaAcordado }}</p>
       <p><b>Valor total:</b> R${{ resultado.valorTotal }}</p>
-      <p><b>Retirada: </b> {{ formatar( resultado.dataRetirada ) | date:'dd/MM/yyyy HH:mm'}}</p>
-      <p><b>Devolução: </b> {{ formatar( resultado.dataDevolucaoReal) | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p>
+        <b>Retirada: </b>
+        {{ formatar(resultado.dataRetirada) | date: "dd/MM/yyyy HH:mm" }}
+      </p>
+      <p>
+        <b>Devolução: </b>
+        {{ formatar(resultado.dataDevolucaoReal) | date: "dd/MM/yyyy HH:mm" }}
+      </p>
     </div>
   </mat-card>
 </div>

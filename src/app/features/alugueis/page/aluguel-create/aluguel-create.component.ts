@@ -29,6 +29,8 @@ export class AluguelCreateComponent implements OnInit {
   form = this.fb.group({
     clienteId: [null as any, Validators.required],
     veiculoId: [null as any, Validators.required],
+    retiradaData: [null as any],
+    retiradaHora: [''],
     devolucaoData: [null as any, Validators.required], // Date
     devolucaoHora: ['12:00', Validators.required],     // "HH:mm"
     combustivelRetirada: [null as any, Validators.required],
@@ -64,15 +66,31 @@ export class AluguelCreateComponent implements OnInit {
     });
   }
 
-  private buildDateTime(): string {
-    const date: Date = this.form.value.devolucaoData!;
-    const hora: string = this.form.value.devolucaoHora!;
+  private buildDateTime(date: Date, hora: string): string {
     const [hh, mm] = hora.split(':').map(Number);
 
     const dt = new Date(date);
     dt.setHours(hh, mm, 0, 0);
 
     return toLocalDateTime(dt);
+  }
+
+  private buildRetiradaDateTime(): string | undefined {
+    const date = this.form.value.retiradaData;
+    const hora = this.form.value.retiradaHora;
+
+    if (!date) {
+      return undefined;
+    }
+
+    return this.buildDateTime(date, hora || '12:00');
+  }
+
+  private buildDevolucaoDateTime(): string {
+    return this.buildDateTime(
+      this.form.value.devolucaoData!,
+      this.form.value.devolucaoHora!
+    );
   }
 
   salvar() {
@@ -86,7 +104,8 @@ export class AluguelCreateComponent implements OnInit {
     const dto = {
       clienteId: this.form.value.clienteId!,
       veiculoId: this.form.value.veiculoId!,
-      dataDevolucaoPrevista: this.buildDateTime(),
+      dataRetirada: this.buildRetiradaDateTime(),
+      dataDevolucaoPrevista: this.buildDevolucaoDateTime(),
       combustivelRetirada: this.form.value.combustivelRetirada!,
       precoDiariaCustomizada: this.form.value.precoDiariaCustomizada
         ? String(this.form.value.precoDiariaCustomizada).replace(',', '.')
@@ -97,7 +116,6 @@ export class AluguelCreateComponent implements OnInit {
       next: (res) => {
         this.ultimo = res;
         this.toastr.success(`Aluguel #${res.id} criado com sucesso!`);
-        // this.router.navigate(['/alugueis/devolucao'], { queryParams: { id: res.id } });
       },
       error: () => (this.saving = false),
       complete: () => (this.saving = false),
@@ -108,7 +126,9 @@ export class AluguelCreateComponent implements OnInit {
     if (!this.ultimo) {
       return;
     }
-    this.router.navigate(['/alugueis/devolucao', { queryParams: { id: this.ultimo.id } }])
+    this.router.navigate(['/alugueis/devolucao'], {
+      queryParams: { id: this.ultimo.id }
+    });
   }
 
   formatar(dt?: string): Date | null {

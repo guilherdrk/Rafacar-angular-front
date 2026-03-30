@@ -24,22 +24,6 @@
             >Obrigatório</mat-error
           >
         </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Telefone</mat-label>
-          <input matInput formControlName="telefone" />
-          <mat-error *ngIf="form.get('telefone')?.hasError('required')"
-            >Obrigatório</mat-error
-          >
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Endereço</mat-label>
-          <input matInput formControlName="endereco" />
-          <mat-error *ngIf="form.get('endereco')?.hasError('required')"
-            >Obrigatório</mat-error
-          >
-        </mat-form-field>
       </form>
     </div>
 

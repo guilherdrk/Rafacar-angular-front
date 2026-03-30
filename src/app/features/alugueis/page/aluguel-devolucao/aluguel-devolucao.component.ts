@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AluguelApi } from 'src/app/core/api/aluguel.api';
-import { AluguelCompletoResponseDTO } from 'src/app/core/models/aluguel.model';
+import { AluguelCompletoResponseDTO, AluguelDevolucaoDTO } from 'src/app/core/models/aluguel.model';
 import { NIVEL_COMBUSTIVEL_OPCOES } from 'src/app/core/models/enums';
 import { toLocalDateTime } from 'src/app/core/utils/datetime';
 import { parseLocalDateTime } from 'src/app/core/utils/datetime-view';
@@ -22,7 +22,9 @@ export class AluguelDevolucaoComponent implements OnInit {
 
   form = this.fb.group({
     aluguelId: [null as any, Validators.required],
-    combustivelDevolucao: [null as any, Validators.required]
+    combustivelDevolucao: [null as any, Validators.required],
+    devolucaoData: [null as any],
+    devolucaoHora: [''],
   });
 
   constructor(
@@ -35,21 +37,37 @@ export class AluguelDevolucaoComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.queryParamMap.get('id');
-    if(id){
+    if (id) {
       this.form.patchValue({ aluguelId: Number(id) });
     };
   }
 
-  devolver(){
-    if(this.form.invalid){
+  private buildDevolucaoDateTime(): string | undefined {
+    const date = this.form.value.devolucaoData;
+    const hora = this.form.value.devolucaoHora;
+
+    if (!date) {
+      return undefined;
+    }
+
+    const [hh, mm] = (hora || '12:00').split(':').map(Number);
+    const dt = new Date(date);
+    dt.setHours(hh, mm, 0, 0);
+
+    return toLocalDateTime(dt);
+  }
+
+  devolver() {
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
       return
     }
     this.saving = true;
 
     const id = Number(this.form.value.aluguelId);
-    const dto = {
-      combustivelDevolucao: this.form.value.combustivelDevolucao
+    const dto: AluguelDevolucaoDTO = {
+      combustivelDevolucao: this.form.value.combustivelDevolucao!,
+      dataDevolucaoReal: this.buildDevolucaoDateTime(),
     };
 
     this.api.devolver(id, dto).subscribe({
@@ -61,11 +79,11 @@ export class AluguelDevolucaoComponent implements OnInit {
       complete: () => (this.saving = false),
     });
   }
-  voltar(){
+  voltar() {
     this.router.navigate(['/alugueis/novo'])
   }
 
-  formatar(dt?: string): Date | null{
+  formatar(dt?: string): Date | null {
     return parseLocalDateTime(dt);
   }
 

@@ -15,7 +15,7 @@ import { PageEvent } from '@angular/material/paginator';
 export class ClienteListaComponent implements OnInit {
   loading: boolean = false;
 
-  displayedColumns = ['id', 'nomeCompleto', 'cpf', 'telefone', 'endereco', 'acoes'];
+  displayedColumns = ['id', 'nomeCompleto', 'cpf', 'acoes'];
   data: ClienteSummaryDTO[] = []
   total = 0;
   page = 0;

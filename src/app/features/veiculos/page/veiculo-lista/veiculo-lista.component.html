@@ -56,7 +56,7 @@
 
         <ng-container matColumnDef="placa">
           <th mat-header-cell *matHeaderCellDef>Placa</th>
-          <td mat-cell *matCellDef="let v">{{ v.placa }}</td>
+          <td mat-cell *matCellDef="let v">{{ v.placa || 'Sem placa' }}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">

@@ -65,7 +65,7 @@ export class VeiculoListaComponent implements OnInit {
       data: { veiculoId: v.id, placa: v.placa},
     }).afterClosed().subscribe((ok: boolean) => {
       if(ok) {
-        this.toastr.success('Veiculo enviado para manutenção!');
+        this.toastr.success('Veículo enviado para manutenção!');
         this.load();
       }
     });
@@ -74,16 +74,14 @@ export class VeiculoListaComponent implements OnInit {
   liberar(v: VeiculoSummaryDTO){
     this.api.liberar(v.id).subscribe({
       next: () => {
-        this.toastr.success('Veiculo liberado da manutenção!');
+        this.toastr.success('Veículo liberado da manutenção!');
         this.load();
       }
     });
   }
 
-
-
   podeEnviarManutencao(v: VeiculoSummaryDTO) {
-  return v.status === 'DISPONIVEL';
+    return v.status === 'DISPONIVEL';
   }
 
   podeLiberar(v: VeiculoSummaryDTO){
@@ -93,7 +91,4 @@ export class VeiculoListaComponent implements OnInit {
   go(path: string) {
     this.router.navigateByUrl(path);
   }
-
-
-
 }

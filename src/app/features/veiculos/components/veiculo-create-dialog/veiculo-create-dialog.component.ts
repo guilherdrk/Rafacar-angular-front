@@ -17,7 +17,7 @@ export class VeiculoCreateDialogComponent {
   form = this.fb.group({
     modelo: ['', Validators.required],
     marca: ['', Validators.required],
-    placa: ['', Validators.required],
+    placa: [''],
     precoDiariaPadrao: ['', Validators.required],
   });
 
@@ -31,7 +31,7 @@ export class VeiculoCreateDialogComponent {
       this.form.patchValue({
         modelo: data.veiculo.modelo,
         marca: data.veiculo.marca,
-        placa: data.veiculo.placa,
+        placa: data.veiculo.placa ?? '',
         precoDiariaPadrao: String(data.veiculo.precoDiariaPadrao),
       });
     }
@@ -45,7 +45,12 @@ export class VeiculoCreateDialogComponent {
     this.dialogRef.close(false);
   }
 
-   save() {
+  private normalizarPlaca(valor: string | null | undefined): string | null {
+    const placa = String(valor ?? '').trim().toUpperCase();
+    return placa ? placa : null;
+  }
+
+  save() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -56,7 +61,7 @@ export class VeiculoCreateDialogComponent {
     const dto = {
       modelo: this.form.value.modelo!,
       marca: this.form.value.marca!,
-      placa: this.form.value.placa!,
+      placa: this.normalizarPlaca(this.form.value.placa),
       precoDiariaPadrao: String(this.form.value.precoDiariaPadrao ?? '').replace(',', '.'),
     };
 
@@ -66,8 +71,5 @@ export class VeiculoCreateDialogComponent {
       error: () => (this.saving = false),
       complete: () => (this.saving = false),
     });
-    
   }
-
-
 }

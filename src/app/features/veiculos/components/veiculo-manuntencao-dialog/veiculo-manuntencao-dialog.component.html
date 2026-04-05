@@ -3,7 +3,7 @@
 
   <div class="content" mat-dialog-content>
     <p>
-      Veiculo: <b> {{ data.placa }} </b>
+      Veículo: <b>{{ data.placa || 'Sem placa' }}</b>
     </p>
 
     <form [formGroup]="form">
@@ -11,7 +11,7 @@
         <mat-label>Descrição</mat-label>
         <input matInput formControlName="descricao" />
         <mat-error *ngIf="form.get('descricao')?.hasError('required')"
-          >Obrigátorio</mat-error
+          >Obrigatório</mat-error
         >
       </mat-form-field>
 
@@ -19,8 +19,14 @@
         <mat-label>Custo</mat-label>
         <input matInput formControlName="custo" placeholder="Ex: 300" />
         <mat-error *ngIf="form.get('custo')?.hasError('required')"
-          >Obrigátorio</mat-error
+          >Obrigatório</mat-error
         >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data da manutenção</mat-label>
+        <input matInput type="datetime-local" formControlName="dataManutencao" />
+        <mat-hint>Deixe em branco para usar a data atual</mat-hint>
       </mat-form-field>
     </form>
   </div>

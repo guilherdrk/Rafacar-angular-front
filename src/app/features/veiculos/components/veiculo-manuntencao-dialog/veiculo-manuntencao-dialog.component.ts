@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { VeiculoApi } from 'src/app/core/api/veiculo.api';
@@ -14,18 +14,24 @@ export class VeiculoManuntencaoDialogComponent {
 
   form = this.fb.group({
     descricao: ['', [Validators.required, Validators.minLength(3)]],
-    custo: ['', [Validators.required]]
+    custo: ['', [Validators.required]],
+    dataManutencao: ['']
   })
 
   constructor(
     private fb: FormBuilder,
     private api: VeiculoApi,
     private dialoRef: MatDialogRef<VeiculoManuntencaoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { veiculoId: number; placa: string }
+    @Inject(MAT_DIALOG_DATA) public data: { veiculoId: number; placa: string | null }
   ) { }
 
   cancel(){
     this.dialoRef.close(false);
+  }
+
+  private normalizarData(valor: string | null | undefined): string | null {
+    const data = String(valor ?? '').trim();
+    return data ? data : null;
   }
 
   save(){
@@ -38,7 +44,8 @@ export class VeiculoManuntencaoDialogComponent {
 
     const dto = {
       descricao: this.form.value.descricao!,
-      custo: String(this.form.value.custo ?? '').replace('', ''),
+      custo: String(this.form.value.custo ?? '').replace(',', '.'),
+      dataManutencao: this.normalizarData(this.form.value.dataManutencao),
     };
 
     this.api.manutencao(this.data.veiculoId, dto).subscribe({
@@ -47,5 +54,4 @@ export class VeiculoManuntencaoDialogComponent {
       complete: () => (this.saving = false)
     });
   }
-
 }

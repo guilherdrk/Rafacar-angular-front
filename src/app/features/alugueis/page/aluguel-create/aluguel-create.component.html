@@ -75,6 +75,33 @@
           </mat-form-field>
         </div>
 
+        <div class="data-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Devolução prevista (data)</mat-label>
+            <input
+              matInput
+              [matDatepicker]="pickerDevolucao"
+              formControlName="devolucaoData"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickerDevolucao"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickerDevolucao></mat-datepicker>
+            <mat-error *ngIf="form.get('devolucaoData')?.hasError('required')">
+              Informe a data prevista de devolução.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hora da devolução prevista</mat-label>
+            <input matInput type="time" formControlName="devolucaoHora" />
+            <mat-error *ngIf="form.get('devolucaoHora')?.hasError('required')">
+              Informe a hora prevista de devolução.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
         <mat-form-field appearance="outline">
           <mat-label>Combustível na retirada</mat-label>
           <mat-select formControlName="combustivelRetirada">

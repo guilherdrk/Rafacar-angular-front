@@ -25,6 +25,7 @@ export class AluguelDevolucaoComponent implements OnInit {
     combustivelDevolucao: [null as any, Validators.required],
     devolucaoData: [null as any],
     devolucaoHora: [''],
+    quantidadeDias: [null as any],
   });
 
   constructor(
@@ -56,6 +57,17 @@ export class AluguelDevolucaoComponent implements OnInit {
 
     return toLocalDateTime(dt);
   }
+  private buildQuantidadeDias(): number | undefined {
+    const valor = this.form.value.quantidadeDias;
+
+    if (valor === null || valor === undefined || valor === '') {
+      return undefined;
+    }
+
+    const numero = Number(valor);
+    return Number.isFinite(numero) && numero > 0 ? numero : undefined;
+  }
+
 
   devolver() {
     if (this.form.invalid) {
@@ -68,6 +80,7 @@ export class AluguelDevolucaoComponent implements OnInit {
     const dto: AluguelDevolucaoDTO = {
       combustivelDevolucao: this.form.value.combustivelDevolucao!,
       dataDevolucaoReal: this.buildDevolucaoDateTime(),
+      quantidadeDias: this.buildQuantidadeDias(),
     };
 
     this.api.devolver(id, dto).subscribe({

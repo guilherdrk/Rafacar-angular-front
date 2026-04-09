@@ -24,6 +24,7 @@ export interface AluguelResponseDTO {
 export interface AluguelDevolucaoDTO {
   combustivelDevolucao: NivelCombustivel;
   dataDevolucaoReal?: string;
+  quantidadeDias?: number;
 }
 
 export interface AluguelCompletoResponseDTO {
@@ -34,6 +35,7 @@ export interface AluguelCompletoResponseDTO {
   dataDevolucaoReal: string;
   combustivelRetirada: NivelCombustivel;
   combustivelDevolucao: NivelCombustivel;
+  quantidadeDias?: number;
   valorDiariaAcordado: string;
   valorTotal: string;
 }
